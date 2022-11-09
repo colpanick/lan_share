@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card} from "react-bootstrap";
-import {FaTrashAlt} from "react-icons/all";
+import {FaTrashAlt} from "react-icons/fa";
 
 const Post = ({post, onDelete}) => {
     const title = post.title ? post.title : post.url

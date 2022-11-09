@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Button, Card, Form} from "react-bootstrap";
-import {FaCaretDown, FaCaretUp} from "react-icons/all";
+import {FaCaretDown, FaCaretUp} from "react-icons/fa";
 
 
 const AddPost = ({onAdd, showAdd, toggleShow}) => {
