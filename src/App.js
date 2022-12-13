@@ -2,12 +2,15 @@ import {useEffect, useState} from 'react'
 import './App.css';
 import AddPost from "./components/AddPost";
 import Posts from "./components/Posts";
-import {Container} from "react-bootstrap";
+import Configuration from "./components/Configuration";
+import {Button, Container, OverlayTrigger, Popover, Stack} from "react-bootstrap";
+import {FaWrench} from "react-icons/fa";
 
 function App() {
     const JSON_SERVER = process.env.REACT_APP_API_URL || `${window.location.origin}/api`
     const [posts, setPosts] = useState([])
     const [showAdd, setShowAdd] = useState(true)
+
 
     // Populate with Posts pulled from API
     useEffect(() => {
@@ -25,13 +28,11 @@ function App() {
 
     }
 
-    const onAdd = async (post) => {
+    const addPost = async (post) => {
         const res = await fetch(`${JSON_SERVER}/posts`,
             {
                 method: "POST",
-                headers: {
-                    "Content-type": "application/json"
-                },
+                headers: {"Content-type": "application/json"},
                 body: JSON.stringify(post)
             })
 
@@ -40,7 +41,7 @@ function App() {
         setPosts([data, ...posts])
     }
 
-    const deleteTask = async (id) => {
+    const deletePost = async (id) => {
         await fetch(`${JSON_SERVER}/posts/${id}`, {method: "DELETE"})
         setPosts(posts.filter((post) => post.id !== id))
     }
@@ -49,14 +50,60 @@ function App() {
         setShowAdd(!showAdd)
     }
 
+
+    const getSetting = async (id) => {
+        let setting_request = await fetch(`${JSON_SERVER}/configuration/${id}`)
+        return await setting_request.json()
+    }
+
+    const getAllSettings = async () => {
+        let setting_request = await fetch(`${JSON_SERVER}/configuration`)
+        return await setting_request.json()
+    }
+
+    const getOGDataFromOpengraphIo = async (url) => {
+        let enc_url = encodeURIComponent(url)
+        let app_id = await getSetting(1, "App ID")
+        let og_request = await fetch("https://opengraph.io/api/1.1/site/" + enc_url + "?app_id=" + app_id.value)
+        let og_data = await og_request.json()
+        return {
+            "title": og_data.hybridGraph.title,
+            "body": og_data.hybridGraph.description
+        }
+    }
+
+    const updateConfigValue = async (id, data) => {
+        const url = `${JSON_SERVER}/configuration/${id}`
+        const values = JSON.stringify(data)
+        return await fetch(url, {
+            method: 'PATCH',
+            headers: {'Content-type': 'application/json'},
+            body: values
+        })
+    }
+
+    const ConfPopover = (
+            <Popover id="config-popover">
+                    <Configuration settings={getAllSettings} sendConfigUpdate={updateConfigValue}/>
+            </Popover>
+        )
+        const ConfTrigger = () => (
+            <OverlayTrigger trigger="click" placement="left" overlay={ConfPopover}>
+                <Button variant="secondary" className="ms-auto"><FaWrench/></Button>
+            </OverlayTrigger>
+        )
+
     return (
     <Container fluid className="p-0">
         <Container fluid className="p-4 text-light bg-dark">
-            <h1>LAN Share</h1>
+            <Stack direction="horizontal">
+                <h1>LAN Share</h1>
+                <ConfTrigger className="ms-auto"/>
+            </Stack>
         </Container>
         <Container>
-            <AddPost onAdd={onAdd} showAdd={showAdd} toggleShow={toggleShowAddNew}/>
-            <Posts posts={posts} onDelete={deleteTask}/>
+            <AddPost onAdd={addPost} showAdd={showAdd} toggleShow={toggleShowAddNew} getOGData={getOGDataFromOpengraphIo}/>
+            <Posts posts={posts} onDelete={deletePost}/>
         </Container>
 
     </Container>

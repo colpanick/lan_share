@@ -1,3 +1,10 @@
 {
-  "posts": [  ]
+  "posts": [  ],
+  "configuration": [
+    {
+      "id": 1,
+      "desc": "Opengraph.io App Id",
+      "value": ""
+    }
+  ]
 }
