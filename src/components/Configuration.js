@@ -28,8 +28,6 @@ const Configuration = ({settings, sendConfigUpdate}) => {
         }
 
         let res = await sendConfigUpdate(newOgApiKey.id,newOgApiKey)
-        console.log(res)
-
     }
 
     return (
