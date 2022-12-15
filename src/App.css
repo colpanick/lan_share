@@ -1,3 +1,19 @@
+.form-control {
+    background-color: #333741;
+    border: black none;
+    color: darkgray;
+}
+.form-control:focus {
+    background-color: #333741;
+    border: darkgray none 1px;
+    color: white;
+    box-shadow: none;
+}
+
+.card {
+    border: #272D33 solid 1px;
+}
+
 .header {
   text-align: center;
   background-color: lightblue;
@@ -11,4 +27,16 @@
 
 .post-body {
   white-space: pre-line;
+}
+
+.card-header {
+    border-bottom: gray solid 1px;
+}
+
+a:link {
+    text-decoration: none
+}
+
+#addpost-header {
+    border: black none
 }

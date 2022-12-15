@@ -34,7 +34,7 @@ const AddPost = ({onAdd, showAdd, toggleShow, getOGData}) => {
 
     return (
         <Card className="p-2 m-2 text-light bg-dark" >
-            <h6 className="card-header" onClick={toggleShow}>
+            <h6 className="card-header" id="addpost-header" onClick={toggleShow}>
                 Add New
                 {showAdd ? <FaCaretDown/> : <FaCaretUp/>}
             </h6>
