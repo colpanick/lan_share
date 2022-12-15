@@ -95,7 +95,7 @@ function App() {
 
     return (
 
-    <Container fluid className="p-0">
+    <Container fluid className="p-0 mb-4">
         <Navbar bg="dark" variant="dark">
             <Container>
                 <Navbar.Brand>LAN Share</Navbar.Brand>
