@@ -33,7 +33,7 @@ const AddPost = ({onAdd, showAdd, toggleShow, getOGData}) => {
     }
 
     return (
-        <Card className="p-2 m-2 text-light bg-dark" >
+        <Card className="p-2 mt-5 text-light bg-dark" >
             <h6 className="card-header" id="addpost-header" onClick={toggleShow}>
                 Add New
                 {showAdd ? <FaCaretDown/> : <FaCaretUp/>}
@@ -48,11 +48,13 @@ const AddPost = ({onAdd, showAdd, toggleShow, getOGData}) => {
                                 value={url}
                                 onChange={(e) => setUrl(e.target.value)}
                                 placeholder="URL"
+
                             />
                             <FaArrowCircleDown
                                 onClick={() => autoFillClicked()}
                                 placeholder="Autofill"
                                 size="2em"
+                                className={"text-secondary"}
                             />
 
                         </Stack>

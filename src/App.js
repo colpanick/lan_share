@@ -3,7 +3,7 @@ import './App.css';
 import AddPost from "./components/AddPost";
 import Posts from "./components/Posts";
 import Configuration from "./components/Configuration";
-import {Button, Container, OverlayTrigger, Popover, Stack} from "react-bootstrap";
+import {Button, Container, OverlayTrigger, Popover, Stack, Nav, Navbar} from "react-bootstrap";
 import {FaWrench} from "react-icons/fa";
 
 function App() {
@@ -89,18 +89,19 @@ function App() {
         )
         const ConfTrigger = () => (
             <OverlayTrigger trigger="click" placement="left" overlay={ConfPopover}>
-                <Button variant="secondary" className="ms-auto"><FaWrench/></Button>
+                <Button variant="secondary" className="ms-auto py-0 px-1 icon" id="settings-button"><FaWrench className="text-dark" /></Button>
             </OverlayTrigger>
         )
 
     return (
+
     <Container fluid className="p-0">
-        <Container fluid className="p-4 text-light bg-dark">
-            <Stack direction="horizontal">
-                <h1>LAN Share</h1>
-                <ConfTrigger className="ms-auto"/>
-            </Stack>
-        </Container>
+        <Navbar bg="dark" variant="dark">
+            <Container>
+                <Navbar.Brand>LAN Share</Navbar.Brand>
+                <Navbar.Text><ConfTrigger className="ms-auto"/></Navbar.Text>
+            </Container>
+        </Navbar>
         <Container>
             <AddPost onAdd={addPost} showAdd={showAdd} toggleShow={toggleShowAddNew} getOGData={getOGDataFromOpengraphIo}/>
             <Posts posts={posts} onDelete={deletePost}/>
