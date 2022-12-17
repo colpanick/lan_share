@@ -2,14 +2,17 @@ import {useEffect, useState} from 'react'
 import './App.css';
 import AddPost from "./components/AddPost";
 import Posts from "./components/Posts";
-import Configuration from "./components/Configuration";
-import {Button, Container, OverlayTrigger, Popover, Stack, Nav, Navbar} from "react-bootstrap";
-import {FaWrench} from "react-icons/fa";
+import ConfigurationModal from "./components/ConfigurationModal";
+import {Container, Navbar} from "react-bootstrap";
+import LANshareImage from "./LANshare.png"
+
+
 
 function App() {
     const JSON_SERVER = process.env.REACT_APP_API_URL || `${window.location.origin}/api`
     const [posts, setPosts] = useState([])
     const [showAdd, setShowAdd] = useState(true)
+
 
 
     // Populate with Posts pulled from API
@@ -82,24 +85,16 @@ function App() {
         })
     }
 
-    const ConfPopover = (
-            <Popover id="config-popover">
-                    <Configuration settings={getAllSettings} sendConfigUpdate={updateConfigValue}/>
-            </Popover>
-        )
-        const ConfTrigger = () => (
-            <OverlayTrigger trigger="click" placement="left" overlay={ConfPopover}>
-                <Button variant="secondary" className="ms-auto py-0 px-1 icon" id="settings-button"><FaWrench className="text-dark" /></Button>
-            </OverlayTrigger>
-        )
-
     return (
-
     <Container fluid className="p-0 mb-4">
+
         <Navbar bg="dark" variant="dark">
             <Container>
-                <Navbar.Brand>LAN Share</Navbar.Brand>
-                <Navbar.Text><ConfTrigger className="ms-auto"/></Navbar.Text>
+                <Navbar.Brand><img src={LANshareImage}/></Navbar.Brand>
+                <Navbar.Text>
+                    <ConfigurationModal settings={getAllSettings} sendConfigUpdate={updateConfigValue}/>
+                </Navbar.Text>
+
             </Container>
         </Navbar>
         <Container>

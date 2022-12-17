@@ -48,3 +48,13 @@ a:link {
 .navbar {
     font-weight: bold;
 }
+
+.modal-content {
+    background-color: #1A1C21;
+    color: gray;
+    box-shadow: gray 0px 0px 10px 1px;
+
+}
+.modal-header {
+    border-bottom: gray solid 1px;
+}

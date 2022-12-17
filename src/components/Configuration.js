@@ -6,6 +6,7 @@ import {Button, Card, Form} from "react-bootstrap";
 
 const Configuration = ({settings, sendConfigUpdate}) => {
     const [ogAPI, setOgAPI] = useState([])
+
     let allSettings = {}
 
 
@@ -48,6 +49,6 @@ const Configuration = ({settings, sendConfigUpdate}) => {
             </Form>
         </Card>
     )
-    }
+}
 
 export default Configuration
